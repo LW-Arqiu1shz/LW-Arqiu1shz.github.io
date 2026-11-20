@@ -74,7 +74,7 @@ const WORKS = [
     name: "这长矛有力气", en: "Awesome Spears",
     desc: "突进附魔太能吃、空中不能用、冲锋和突进不能一起用、瞄着天还只能横着冲……装上这个模组，这些烦恼统统烟消云散。希望如此。",
     cover: "img/spears.webp",
-    tags: ["26.1.2", "26.3", "Fabric", "NeoForge"],
+    tags: ["1.20.1", "1.21.1", "26.1.2", "26.3", "Fabric", "Forge", "NeoForge"],
   },
   {
     id: "viltraedit", type: "mod", mcmod: 31901, status: "released", series: "原版小优化",
