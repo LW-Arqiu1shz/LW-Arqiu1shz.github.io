@@ -58,20 +58,16 @@ a{color:inherit}
 .icon-btn svg{width:17px;height:17px}
 
 /* ---- 头部介绍 ---- */
-.hero{padding:40px 0 30px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.hero{padding:40px 0 26px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
 .avatar{width:104px;height:104px;border-radius:28px;background:var(--accent-soft);display:grid;place-items:center;
   font-size:38px;font-weight:800;color:var(--accent-fg);overflow:hidden;box-shadow:var(--shadow)}
 .avatar img{width:100%;height:100%;object-fit:cover}
 .hero h1{margin:0;font-size:clamp(28px,5vw,42px);line-height:1.2;letter-spacing:.3px}
-.hero h1 .wave{display:inline-block;animation:wave 2.4s ease-in-out infinite;transform-origin:70% 70%}
-@keyframes wave{0%,60%,100%{transform:rotate(0)}10%,30%{transform:rotate(14deg)}20%{transform:rotate(-8deg)}}
+.hero h1 .yr{color:var(--accent)}
 .hero p{margin:10px 0 0;color:var(--dim);font-size:16px;max-width:640px}
-.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 14px;font-size:14px;color:var(--dim)}
-.stat b{color:var(--fg);font-size:16px;margin-right:3px}
 
 /* ---- 置顶大图 ---- */
-.featured{display:grid;grid-template-columns:1.55fr 1fr;border-radius:22px;overflow:hidden;margin:26px 0 8px;
+.featured{display:grid;grid-template-columns:1.55fr 1fr;border-radius:22px;overflow:hidden;margin:22px 0 8px;
   text-decoration:none;color:#fff;box-shadow:var(--shadow);background:linear-gradient(135deg,#3a130a,#1c0905)}
 .featured .pic{overflow:hidden;aspect-ratio:16/9}
 .featured img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
@@ -82,6 +78,14 @@ a{color:inherit}
 .featured .en{color:#e9b99a;font-size:14px}
 .featured p{margin:12px 0 0;font-size:15px;color:#f3ddd0}
 .featured .go{margin-top:16px;font-size:14px;font-weight:600;color:#ffb37a}
+.featured .pic.sq{position:relative}
+.featured .pic.sq::before{content:"";position:absolute;inset:-30px;background:var(--img) center/cover;filter:blur(24px) brightness(.7)}
+.featured .pic.sq img{position:relative;object-fit:contain}
+.feat-wrap{position:relative}
+.feat-nav{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.feat-nav button{width:9px;height:9px;padding:0;border-radius:99px;border:0;background:var(--line);cursor:pointer;transition:.2s}
+.feat-nav button[aria-current="true"]{width:24px;background:var(--accent)}
+.feat-empty{margin:22px 0 8px;border:1px dashed var(--line);border-radius:22px;padding:42px 20px;text-align:center;color:var(--faint);font-size:15px}
 
 /* ---- 更新公告 ---- */
 .news{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);margin-top:30px;overflow:hidden}
@@ -108,7 +112,7 @@ a{color:inherit}
 
 /* ---- 筛选 ---- */
 .bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);
-  padding:14px 0;margin-top:18px;border-bottom:1px solid transparent}
+  padding:14px 0;margin-top:14px;border-bottom:1px solid transparent}
 .bar.stuck{border-bottom-color:var(--line)}
 .bar .wrap{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
@@ -179,10 +183,12 @@ a{color:inherit}
 .empty{color:var(--faint);text-align:center;padding:40px 0}
 
 /* ---- 伙伴 ---- */
-.partners{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.partners{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
 .partner{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
 .partner b{display:block}
 .partner span{font-size:13px;color:var(--dim)}
+#partnersPeople{margin-top:12px}
+#partnersPeople .partner{background:var(--bg2)}
 footer{color:var(--faint);font-size:13px;text-align:center;padding:50px 0 40px}
 footer a{color:var(--dim)}
 
@@ -204,7 +210,7 @@ footer a{color:var(--dim)}
   <nav class="top">
     <a class="logo" href="#">Arqiu<span>-owo</span></a>
     <div class="top-right">
-      <div class="navlinks"><a href="#works">作品</a><a href="#news">更新公告</a><a href="#partners-sec">伙伴</a></div>
+      <div class="navlinks"><a href="#works">作品</a><a href="#news">更新公告</a><a href="#partners-sec">鸣谢</a></div>
       <button class="icon-btn" id="themeBtn" title="切换深浅色" aria-label="切换深浅色"></button>
       <a class="icon-btn" id="ghBtn" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -216,12 +222,21 @@ footer a{color:var(--dim)}
   <header class="hero">
     <div class="avatar" id="avatar">A</div>
     <div>
-      <h1>你好，我是 <span id="pName">Arqiu-owo</span> <span class="wave">👋</span></h1>
+      <h1>你醒啦，今年是 <span class="yr" id="yr"></span> 年。</h1>
       <p id="pBio"></p>
-      <div class="stats" id="stats"></div>
     </div>
   </header>
+</div>
 
+<div class="bar" id="bar">
+  <span id="works"></span>
+  <div class="wrap">
+    <div class="chips" id="chips"></div>
+    <input class="search" id="search" type="search" placeholder="搜索作品…" aria-label="搜索作品">
+  </div>
+</div>
+
+<div class="wrap">
   <div id="featured"></div>
 
   <section class="news" id="news">
@@ -233,19 +248,12 @@ footer a{color:var(--dim)}
   </section>
 </div>
 
-<div class="bar" id="bar">
-  <span id="works"></span>
-  <div class="wrap">
-    <div class="chips" id="chips"></div>
-    <input class="search" id="search" type="search" placeholder="搜索作品…" aria-label="搜索作品">
-  </div>
-</div>
-
 <main class="wrap" id="list"></main>
 
 <div class="wrap">
-  <div class="section-title" id="partners-sec"><h3>一起做东西的伙伴</h3><span>没有大家就没有这些作品</span></div>
-  <div class="partners" id="partners"></div>
+  <div class="section-title" id="partners-sec"><h3>鸣谢</h3><span>没有大家就没有这些作品</span></div>
+  <div class="partners" id="partnersAI"></div>
+  <div class="partners" id="partnersPeople"></div>
   <footer>
     © <span id="year"></span> Arqiu-owo · 页面托管在 <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
   </footer>
@@ -283,7 +291,6 @@ footer a{color:var(--dim)}
 
   /* 头部 */
   $("#ghBtn").href = GH;
-  $("#pName").textContent = PROFILE.name;
   $("#pBio").textContent = PROFILE.bio;
   $("#year").textContent = new Date().getFullYear();
   const av = new Image();
@@ -291,25 +298,35 @@ footer a{color:var(--dim)}
   av.alt = ""; av.src = PROFILE.avatar || ("https://github.com/" + PROFILE.github + ".png?size=240");
 
   const count = t => WORKS.filter(w => w.type === t).length;
-  $("#stats").innerHTML = [
-    ["mod","个 MC 模组"],["app","个软件"],["plugin","个插件"],["other","个其它作品"]
-  ].filter(([t]) => count(t)).map(([t,l]) => `<div class="stat"><b>${count(t)}</b>${l}</div>`).join("")
-    + `<div class="stat"><b>${WORKS.filter(w=>w.repo).length}</b>个已开源</div>`;
+  $("#yr").textContent = new Date().getFullYear();
 
-  /* 置顶 */
-  const f = WORKS.find(w => w.featured);
-  if (f) {
+  /* 置顶大图：显示当前分区「正在开发」的作品（「全部」= 开发中的 MC 模组），多个就能左右切换 */
+  let featIdx = 0, featTimer = null;
+  function devList(){
+    const t = cur === "all" ? "mod" : cur;
+    return WORKS.filter(w => w.type === t && w.status === "dev").sort((a,b) => (b.featured?1:0) - (a.featured?1:0));
+  }
+  function renderFeatured(reset){
+    const list = devList();
+    if (reset) featIdx = 0;
+    clearInterval(featTimer);
+    if (!list.length) { $("#featured").innerHTML = '<div class="feat-empty">这个分区暂时没有正在做的东西，先去下面看看已经做好的吧~ (｡･ω･｡)</div>'; return; }
+    featIdx = (featIdx + list.length) % list.length;
+    const f = list[featIdx], wide = !!f.banner, img = f.banner || f.cover;
     $("#featured").innerHTML = `
       <a class="featured" href="#w-${esc(f.id)}">
-        <div class="pic"><img src="${esc(f.banner || f.cover)}" alt="${esc(f.name)}"></div>
+        <div class="pic${wide ? "" : " sq"}"${!wide && img ? ` style="--img:url('${esc(img)}')"` : ""}>${img ? `<img src="${esc(img)}" alt="${esc(f.name)}">` : ""}</div>
         <div class="fx">
-          <div class="kicker">${f.status === "dev" ? "🔥 正在制作中" : "⭐ 推荐作品"}</div>
+          <div class="kicker">🔥 正在制作中</div>
           <h2>${esc(f.name)}</h2><div class="en">${esc(f.en)}</div>
           <p>${esc(f.desc)}</p>
           <div class="go">了解更多 →</div>
         </div>
-      </a>`;
+      </a>` + (list.length > 1 ? `<div class="feat-nav">${list.map((w,i) =>
+        `<button aria-label="${esc(w.name)}" aria-current="${i===featIdx}" data-i="${i}"></button>`).join("")}</div>` : "");
+    if (list.length > 1) featTimer = setInterval(() => { featIdx++; renderFeatured(); }, 7000);
   }
+  $("#featured").addEventListener("click", e => { const b = e.target.closest(".feat-nav button"); if (b) { featIdx = +b.dataset.i; renderFeatured(); } });
 
   /* 筛选 */
   let cur = "all", q = "";
@@ -318,7 +335,7 @@ footer a{color:var(--dim)}
     $("#chips").innerHTML = TYPES.filter(t => t.key === "all" || count(t.key))
       .map(t => `<button class="chip" data-k="${t.key}" aria-pressed="${t.key===cur}">${t.label}<span class="n">${t.key==="all"?WORKS.length:count(t.key)}</span></button>`).join("");
   }
-  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; renderChips(); render(); };
+  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; renderChips(); render(); renderFeatured(true); };
   $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
 
   /* 卡片 */
@@ -391,7 +408,7 @@ footer a{color:var(--dim)}
       <div class="section-title"><h3>${esc(g.name)}</h3><span>${g.items.length} 个</span></div>
       <div class="grid">${g.items.map(card).join("")}</div>`).join("");
   }
-  renderChips(); render();
+  renderChips(); render(); renderFeatured(true);
 
   /* 更新公告 */
   const NEWS_TABS = [
@@ -425,7 +442,9 @@ footer a{color:var(--dim)}
   });
 
   /* 伙伴 */
-  $("#partners").innerHTML = PROFILE.partners.map(p => `<div class="partner"><b>${esc(p.name)}</b><span>${esc(p.role)}</span></div>`).join("");
+  const pc = p => `<div class="partner"><b>${esc(p.name)}</b><span>${esc(p.role)}</span></div>`;
+  $("#partnersAI").innerHTML = (PROFILE.thanksAI || []).map(pc).join("");
+  $("#partnersPeople").innerHTML = (PROFILE.thanksPeople || []).map(pc).join("");
 
   /* 吸顶阴影 */
   const bar = $("#bar");

@@ -142,16 +142,22 @@ const WORKS = [
   },
 ];
 
-/* 关于我 / 一起做东西的伙伴（想改就改这里） */
+/* 关于我 / 鸣谢（想改就改这里） */
 const PROFILE = {
   name: "Arqiu-owo",
   github: "LW-Arqiu1shz",
-  bio: "学生，不会写代码，但很会提需求。负责设计、美术、文案和调试，和 AI 伙伴们一起把脑子里的点子做出来。",
-  partners: [
-    { name: "Arqiu-owo", role: "设计 · 美术 · 文案 · 调试" },
+  bio: "欢迎来到阿秋的小仓库~这里不限量供应各种好玩的或者不好玩的废品，欢迎捡起来看看。网络好的话，带走也可以喔✌️😋👌",
+  // 鸣谢：AI 放第一排，人放第二排
+  thanksAI: [
     { name: "Claude", role: "程序 · 项目管理" },
     { name: "DeepSeek", role: "程序 · 项目管理" },
-    { name: "ChatGPT", role: "早期程序" },
-    { name: "AutoMods", role: "早期模组平台" },
+    { name: "ChatGPT", role: "程序 · 美术" },
+    { name: "AutoMods", role: "程序 · 美术" },
+    { name: "Gemini", role: "美术 · 音乐" },
+    { name: "豆包", role: "美术" },
+  ],
+  thanksPeople: [
+    { name: "鱼某人bz", role: "开发启蒙" },
+    { name: "有问题的红河", role: "开发启蒙" },
   ],
 };
