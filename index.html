@@ -136,9 +136,9 @@ a{color:inherit}
 .cover img{position:relative;width:100%;height:100%;object-fit:contain;display:block;transition:transform .4s ease}
 .card:hover .cover:not(.icon) img{transform:scale(1.04)}
 .cover.icon::before,.cover.blank::before{display:none}
-.cover.icon{aspect-ratio:16/10;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,var(--accent-soft),var(--bg2) 75%)}
-.cover.icon img{width:44%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:18px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.15))}
-.cover.blank{aspect-ratio:16/10;display:grid;place-items:center;font-size:56px;font-weight:800;color:var(--accent-fg);
+.cover.icon{display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,var(--accent-soft),var(--bg2) 75%)}
+.cover.icon img{width:52%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:18px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.15))}
+.cover.blank{display:grid;place-items:center;font-size:72px;font-weight:800;color:var(--accent-fg);
   background:repeating-linear-gradient(45deg,var(--accent-soft) 0 14px,var(--bg2) 14px 28px)}
 .badge{position:absolute;top:10px;left:10px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;
   background:rgba(255,255,255,.92);color:#3b2f27;backdrop-filter:blur(4px)}
@@ -149,8 +149,25 @@ a{color:inherit}
 .desc{color:var(--dim);font-size:14px;margin:0;flex:1}
 .tags{display:flex;flex-wrap:wrap;gap:5px}
 .tag{font-size:12px;padding:1px 8px;border-radius:6px;background:var(--bg2);color:var(--dim)}
-.tag.loader{background:var(--blue-soft);color:var(--blue)}
-.meta{display:flex;gap:12px;font-size:12px;color:var(--faint);min-height:18px}
+.tag.loader{background:var(--blue-soft);color:var(--blue);font-weight:600}
+.vbtn{font:inherit;font-size:12px;padding:1px 8px;border-radius:6px;border:1px dashed var(--line);background:none;color:var(--dim);cursor:pointer}
+.vbtn:hover,.vbtn[aria-expanded="true"]{border-color:var(--accent);border-style:solid;color:var(--accent-fg)}
+.meta{display:grid;gap:1px;font-size:12px;color:var(--faint)}
+.meta b{color:var(--dim);font-weight:600}
+/* 版本小气泡 */
+.bubble{position:absolute;z-index:30;max-width:min(320px,calc(100vw - 24px));background:var(--card);color:var(--fg);
+  border:1px solid var(--line);border-radius:14px;padding:10px 14px 12px;box-shadow:var(--shadow-hover);font-size:13px;
+  animation:bub .14s ease-out both;transform-origin:var(--ox,20px) 0}
+@keyframes bub{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.bubble::before{content:"";position:absolute;top:-7px;left:var(--ax,20px);width:12px;height:12px;background:var(--card);
+  border-left:1px solid var(--line);border-top:1px solid var(--line);transform:translateX(-50%) rotate(45deg)}
+.bubble.up{transform-origin:var(--ox,20px) 100%}
+.bubble.up::before{top:auto;bottom:-7px;transform:translateX(-50%) rotate(225deg)}
+.bubble .ld{font-weight:700;color:var(--blue);margin-top:8px}
+.bubble .ld:first-child{margin-top:0}
+.bubble .row{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;margin-top:3px}
+.bubble .row b{min-width:52px;color:var(--fg)}
+.bubble .row span{color:var(--dim)}
 .actions{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;padding:6px 12px;border-radius:9px;
   text-decoration:none;border:1px solid var(--line);color:var(--fg);background:var(--card)}
@@ -248,7 +265,6 @@ footer a{color:var(--dim)}
     { key:"plugin", label:"插件" },
     { key:"other", label:"其它" },
   ];
-  const LOADERS = ["Fabric","NeoForge","Forge","Quilt"];
   const ICON_TYPES = { app:1, plugin:1 };
   const ghIcon = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
   const dlIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>';
@@ -306,14 +322,38 @@ footer a{color:var(--dim)}
   $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
 
   /* 卡片 */
-  const stars = {};
+  /* 最新版本 / 最后更新：自动取 updates.js 里每个作品最新的一条 */
+  const latest = {};
+  (typeof UPDATES !== "undefined" ? UPDATES : []).forEach(u => {
+    if (!u.work) return;
+    const l = latest[u.work] || (latest[u.work] = {});
+    if (!l.date || u.date > l.date) l.date = u.date;
+    if (u.version && (!l.version || cmpVer(u.version, l.version) > 0)) l.version = u.version;
+  });
+  function cmpVer(a, b){
+    const x = a.split(/[.\-]/).map(Number), y = b.split(/[.\-]/).map(Number);
+    for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = (x[i]||0) - (y[i]||0); if (d) return d; }
+    return 0;
+  }
+  const LOADER_ORDER = ["Fabric","NeoForge","Forge","Quilt"];
+  const loadersOf = w => Object.keys(w.versions || {}).sort((a,b) => (LOADER_ORDER.indexOf(a)+99)%99 - (LOADER_ORDER.indexOf(b)+99)%99);
+  const major = v => v.split(".").slice(0,2).join(".") + ".x";
+  function versionGroups(list){
+    const g = {};
+    [...list].sort(cmpVer).forEach(v => (g[major(v)] = g[major(v)] || []).push(v));
+    return Object.entries(g);
+  }
   function card(w){
     const coverCls = !w.cover ? "blank" : (ICON_TYPES[w.type] ? "icon" : "");
     const coverHtml = w.cover ? `<img src="${esc(w.cover)}" alt="${esc(w.name)}" loading="lazy">` : esc([...w.name][0]);
     const badge = w.status === "dev" ? '<span class="badge dev">开发中</span>' : "";
-    const tags = (w.tags||[]).map(t => `<span class="tag${LOADERS.includes(t)?" loader":""}">${esc(t)}</span>`).join("");
-    const s = w.repo && stars[w.repo];
-    const meta = s ? `<span>★ ${s.stars}</span><span>更新于 ${s.updated}</span>` : "";
+    const loaders = loadersOf(w);
+    const nVer = new Set(Object.values(w.versions || {}).flat()).size;
+    const tags = [...loaders, ...(w.platform || [])].map(t => `<span class="tag loader">${esc(t)}</span>`).join("")
+      + (nVer ? `<button class="vbtn" data-id="${esc(w.id)}" aria-expanded="false">${nVer} 个版本 ▾</button>` : "");
+    const l = latest[w.id] || {};
+    const meta = (l.version ? `<span>最新版本 <b>${esc(l.version)}</b></span>` : "")
+      + (l.date ? `<span>最后更新 ${esc(l.date)}</span>` : "");
     let actions = "";
     if (w.repo) {
       const url = GH + "/" + w.repo;
@@ -330,14 +370,15 @@ footer a{color:var(--dim)}
           <div><div class="name">${esc(w.name)}</div>${w.en?`<div class="en">${esc(w.en)}</div>`:""}</div>
           <p class="desc">${esc(w.desc)}</p>
           <div class="tags">${tags}</div>
-          <div class="meta" data-repo="${esc(w.repo||"")}">${meta}</div>
+          ${meta ? `<div class="meta">${meta}</div>` : ""}
           <div class="actions">${actions}</div>
         </div>
       </article>`;
   }
   function render(){
+    closeBubble();
     const list = WORKS.filter(w => (cur === "all" || w.type === cur) &&
-      (!q || [w.name,w.en,w.desc,w.series,...(w.tags||[])].join(" ").toLowerCase().includes(q)));
+      (!q || [w.name,w.en,w.desc,w.series,...loadersOf(w),...Object.values(w.versions||{}).flat(),...(w.platform||[])].join(" ").toLowerCase().includes(q)));
     if (!list.length) { $("#list").innerHTML = '<p class="empty">没有找到符合的作品 (・_・?)</p>'; return; }
     // 按系列分组（保持 works.js 里的顺序）
     const groups = [];
@@ -390,15 +431,34 @@ footer a{color:var(--dim)}
   const bar = $("#bar");
   new IntersectionObserver(([e]) => bar.classList.toggle("stuck", e.intersectionRatio < 1), { threshold:[1], rootMargin:"-1px 0px 0px 0px" }).observe(bar);
 
-  /* 从 GitHub 读星星数和更新时间（读不到也没关系） */
-  fetch(`https://api.github.com/users/${PROFILE.github}/repos?per_page=100`)
-    .then(r => r.ok ? r.json() : [])
-    .then(repos => {
-      repos.forEach(r => stars[r.name] = { stars:r.stargazers_count, updated:new Date(r.pushed_at).toLocaleDateString("zh-CN") });
-      document.querySelectorAll(".meta[data-repo]").forEach(m => {
-        const s = stars[m.dataset.repo]; if (s) m.innerHTML = `<span>★ ${s.stars}</span><span>更新于 ${s.updated}</span>`;
-      });
-    }).catch(() => {});
+  /* 版本小气泡 */
+  var bub = null, bubBtn = null;
+  function closeBubble(){ if (bub) { bub.remove(); bub = null; } if (bubBtn) { bubBtn.setAttribute("aria-expanded","false"); bubBtn = null; } }
+  function openBubble(btn){
+    const w = byId[btn.dataset.id]; if (!w) return;
+    closeBubble();
+    bub = document.createElement("div"); bub.className = "bubble"; bub.setAttribute("role","dialog");
+    bub.innerHTML = loadersOf(w).map(ld => `<div class="ld">${esc(ld)}</div>` +
+      versionGroups(w.versions[ld]).map(([m, vs]) => `<div class="row"><b>${esc(m)}</b><span>${vs.map(esc).join("&nbsp;&nbsp;")}</span></div>`).join("")).join("");
+    document.body.appendChild(bub);
+    const r = btn.getBoundingClientRect(), bw = bub.offsetWidth, bh = bub.offsetHeight;
+    let left = r.left + scrollX + r.width/2 - 26;
+    left = Math.max(scrollX + 12, Math.min(left, scrollX + document.documentElement.clientWidth - bw - 12));
+    const below = r.bottom + 10 + bh < innerHeight || r.top < bh + 20;
+    bub.classList.toggle("up", !below);
+    bub.style.top = (below ? r.bottom + scrollY + 10 : r.top + scrollY - bh - 10) + "px";
+    bub.style.left = left + "px";
+    const ax = Math.max(16, Math.min(bw - 16, r.left + scrollX + r.width/2 - left));
+    bub.style.setProperty("--ax", ax + "px"); bub.style.setProperty("--ox", ax + "px");
+    btn.setAttribute("aria-expanded","true"); bubBtn = btn;
+  }
+  document.addEventListener("click", e => {
+    const btn = e.target.closest(".vbtn");
+    if (btn) { if (btn === bubBtn) closeBubble(); else openBubble(btn); return; }
+    if (!e.target.closest(".bubble")) closeBubble();
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeBubble(); });
+  addEventListener("resize", closeBubble);
 })();
 </script>
 </body>
