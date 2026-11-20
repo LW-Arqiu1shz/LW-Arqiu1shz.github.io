@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arqiu-owo 的作品集</title>
-<meta name="description" content="Arqiu-owo 的 Minecraft 模组、小软件和插件。">
+<title>阿秋的小仓库</title>
+<meta name="description" content="阿秋的时尚小垃圾展示架">
 <link rel="icon" href="img/favicon.jpg">
-<meta property="og:title" content="Arqiu-owo 的作品集">
-<meta property="og:description" content="Minecraft 模组、小软件和插件，和 AI 伙伴们一起做的。">
+<meta property="og:title" content="阿秋的小仓库">
+<meta property="og:description" content="阿秋的时尚小垃圾展示架">
 <meta property="og:image" content="img/hero.webp">
 <style>
 :root{
@@ -46,7 +46,7 @@ a{color:inherit}
 
 /* ---- 顶栏 ---- */
 .top{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
-.logo{font-weight:800;font-size:18px;text-decoration:none;letter-spacing:.3px}
+.logo{white-space:nowrap;font-weight:800;font-size:18px;text-decoration:none;letter-spacing:.3px}
 .logo span{color:var(--accent)}
 .top-right{display:flex;gap:8px;align-items:center}
 .icon-btn{
@@ -67,12 +67,15 @@ a{color:inherit}
 .hero p{margin:10px 0 0;color:var(--dim);font-size:16px;max-width:640px}
 
 /* ---- 置顶大图 ---- */
-.featured{display:grid;grid-template-columns:1.55fr 1fr;border-radius:22px;overflow:hidden;margin:22px 0 8px;
+.duo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;margin:22px 0 8px;align-items:stretch}
+.duo[hidden]{display:none}
+#featured{display:flex;flex-direction:column;min-width:0}
+.featured{display:flex;flex-direction:column;flex:1;border-radius:22px;overflow:hidden;
   text-decoration:none;color:#fff;box-shadow:var(--shadow);background:linear-gradient(135deg,#3a130a,#1c0905)}
 .featured .pic{overflow:hidden;aspect-ratio:16/9}
 .featured img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
 .featured:hover img{transform:scale(1.03)}
-.featured .fx{display:flex;flex-direction:column;justify-content:center;padding:26px clamp(22px,3vw,40px)}
+.featured .fx{display:flex;flex-direction:column;justify-content:center;flex:1;padding:20px clamp(20px,2.6vw,30px) 22px}
 .featured .kicker{font-size:13px;letter-spacing:2px;color:#ffb37a;font-weight:600}
 .featured h2{margin:6px 0 2px;font-size:clamp(24px,3.2vw,34px);line-height:1.2}
 .featured .en{color:#e9b99a;font-size:14px}
@@ -85,17 +88,27 @@ a{color:inherit}
 .feat-nav{display:flex;justify-content:center;gap:8px;margin-top:10px}
 .feat-nav button{width:9px;height:9px;padding:0;border-radius:99px;border:0;background:var(--line);cursor:pointer;transition:.2s}
 .feat-nav button[aria-current="true"]{width:24px;background:var(--accent)}
-.feat-empty{margin:22px 0 8px;border:1px dashed var(--line);border-radius:22px;padding:42px 20px;text-align:center;color:var(--faint);font-size:15px}
+.feat-empty{flex:1;display:grid;place-items:center;border:1px dashed var(--line);border-radius:22px;padding:42px 20px;text-align:center;color:var(--faint);font-size:15px}
 
 /* ---- 更新公告 ---- */
-.news{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);margin-top:30px;overflow:hidden}
-.news-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:16px 18px 12px;border-bottom:1px solid var(--line)}
+.news{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;position:relative;min-height:440px}
+.news-in{position:absolute;inset:0;display:flex;flex-direction:column}
+.news-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 18px 12px;border-bottom:1px solid var(--line)}
 .news-head h3{margin:0;font-size:19px}
-.tabs{display:flex;gap:4px;flex-wrap:wrap;background:var(--bg2);padding:4px;border-radius:12px}
-.tab{border:0;background:none;color:var(--dim);font:inherit;font-size:13px;padding:5px 12px;border-radius:9px;cursor:pointer}
-.tab:hover{color:var(--fg)}
-.tab[aria-selected="true"]{background:var(--card);color:var(--accent-fg);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.news-list{max-height:380px;overflow-y:auto;padding:4px 18px 10px;overscroll-behavior:contain}
+.nsearch{flex:0 1 190px;min-width:120px;height:32px;border-radius:999px;border:1px solid var(--line);background:var(--bg2);
+  color:var(--fg);padding:0 14px;font:inherit;font-size:13px;outline:none}
+.nsearch:focus{border-color:var(--accent);background:var(--card)}
+.news-list{flex:1;min-height:0;overflow-y:auto;padding:4px 18px 10px;overscroll-behavior:contain}
+/* 网站维护日志弹窗 */
+dialog.log{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--fg);padding:0;
+  width:min(560px,calc(100vw - 32px));max-height:min(640px,82vh);box-shadow:var(--shadow-hover)}
+dialog.log[open]{display:flex;flex-direction:column;animation:bub .16s ease-out both}
+dialog.log::backdrop{background:rgba(25,15,8,.45);backdrop-filter:blur(2px)}
+.log-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 12px;border-bottom:1px solid var(--line)}
+.log-head h3{margin:0;font-size:18px}
+.log-x{border:0;background:none;color:var(--dim);font-size:22px;line-height:1;cursor:pointer;padding:4px 8px;border-radius:8px}
+.log-x:hover{background:var(--bg2);color:var(--fg)}
+.log-list{overflow-y:auto;padding:4px 18px 12px}
 .entry{display:grid;grid-template-columns:92px 1fr;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line)}
 .entry:last-child{border-bottom:0}
 .entry time{font-size:13px;color:var(--faint);font-variant-numeric:tabular-nums;padding-top:2px}
@@ -106,8 +119,8 @@ a{color:inherit}
 .entry li{margin:1px 0}
 .news-empty{color:var(--faint);text-align:center;padding:36px 0;font-size:14px}
 .navlinks{display:flex;gap:4px;margin-right:6px}
-.navlinks a{font-size:14px;color:var(--dim);text-decoration:none;padding:6px 10px;border-radius:8px}
-.navlinks a:hover{color:var(--fg);background:var(--bg2)}
+.navlinks a,.navlinks button{white-space:nowrap;font:inherit;font-size:14px;color:var(--dim);text-decoration:none;padding:6px 10px;border-radius:8px;border:0;background:none;cursor:pointer}
+.navlinks a:hover,.navlinks button:hover{color:var(--fg);background:var(--bg2)}
 #news,#works,#partners-sec{scroll-margin-top:16px}
 
 /* ---- 筛选 ---- */
@@ -195,12 +208,20 @@ footer a{color:var(--dim)}
 @media (max-width:640px){
   .hero{grid-template-columns:1fr;gap:16px;padding-top:16px}
   .avatar{width:80px;height:80px;border-radius:22px;font-size:30px}
-  .featured{grid-template-columns:1fr}
   .search{flex:1 1 100%}
   .bar{position:static}
   .gh-text{display:none}
-  .navlinks{display:none}
+  .navlinks{margin-right:0}
+  .navlinks .hide-m{display:none}
+  .navlinks button{font-size:13px;padding:6px 6px}
+  .top-right{gap:6px}
   .entry{grid-template-columns:1fr;gap:2px}
+}
+@media (max-width:860px){
+  .duo{grid-template-columns:1fr}
+  .news{min-height:0}
+  .news-in{position:static}
+  .news-list{max-height:380px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -210,8 +231,12 @@ footer a{color:var(--dim)}
   <nav class="top">
     <a class="logo" href="#">Arqiu<span>-owo</span></a>
     <div class="top-right">
-      <div class="navlinks"><a href="#works">作品</a><a href="#news">更新公告</a><a href="#partners-sec">鸣谢</a></div>
+      <div class="navlinks"><button id="logBtn" type="button">网站维护日志</button><a class="hide-m" href="#partners-sec">鸣谢</a></div>
       <button class="icon-btn" id="themeBtn" title="切换深浅色" aria-label="切换深浅色"></button>
+      <a class="icon-btn" href="https://center.mcmod.cn/188965/" target="_blank" rel="noopener" title="我的 MC百科主页" aria-label="MC百科">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2"/><path d="M8 7h7"/></svg>
+        <span class="gh-text">MC百科</span>
+      </a>
       <a class="icon-btn" id="ghBtn" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         <span class="gh-text">GitHub</span>
@@ -229,24 +254,30 @@ footer a{color:var(--dim)}
 </div>
 
 <div class="bar" id="bar">
-  <span id="works"></span>
   <div class="wrap">
     <div class="chips" id="chips"></div>
     <input class="search" id="search" type="search" placeholder="搜索作品…" aria-label="搜索作品">
   </div>
 </div>
 
-<div class="wrap">
+<div class="wrap duo" id="duo">
   <div id="featured"></div>
 
   <section class="news" id="news">
-    <div class="news-head">
-      <h3>📢 更新公告</h3>
-      <div class="tabs" id="newsTabs" role="tablist"></div>
+    <div class="news-in">
+      <div class="news-head">
+        <h3>📢 更新公告</h3>
+        <input class="nsearch" id="newsSearch" type="search" placeholder="搜索更新日志…" aria-label="搜索更新日志">
+      </div>
+      <div class="news-list" id="newsList"></div>
     </div>
-    <div class="news-list" id="newsList"></div>
   </section>
 </div>
+
+<dialog class="log" id="logDlg" aria-labelledby="logTitle">
+  <div class="log-head"><h3 id="logTitle">🛠️ 网站维护日志</h3><button class="log-x" id="logX" type="button" aria-label="关闭">×</button></div>
+  <div class="log-list" id="logList"></div>
+</dialog>
 
 <main class="wrap" id="list"></main>
 
@@ -261,6 +292,7 @@ footer a{color:var(--dim)}
 
 <script src="works.js"></script>
 <script src="updates.js"></script>
+<script src="sitelog.js"></script>
 <script>
 (function(){
   const $ = s => document.querySelector(s);
@@ -335,15 +367,16 @@ footer a{color:var(--dim)}
     $("#chips").innerHTML = TYPES.filter(t => t.key === "all" || count(t.key))
       .map(t => `<button class="chip" data-k="${t.key}" aria-pressed="${t.key===cur}">${t.label}<span class="n">${t.key==="all"?WORKS.length:count(t.key)}</span></button>`).join("");
   }
-  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; renderChips(); render(); renderFeatured(true); };
-  $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
+  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; renderChips(); render(); renderFeatured(true); renderNews(); };
+  /* 搜索作品时，把开发中展示和公告藏起来 */
+  $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); $("#duo").hidden = !!q; render(); };
 
   /* 卡片 */
   /* 最新版本 / 最后更新：自动取 updates.js 里每个作品最新的一条 */
   const latest = {};
-  (typeof UPDATES !== "undefined" ? UPDATES : []).forEach(u => {
+  (typeof UPDATES !== "undefined" ? UPDATES : []).forEach((u, i) => {
     if (!u.work) return;
-    const l = latest[u.work] || (latest[u.work] = {});
+    const l = latest[u.work] || (latest[u.work] = { idx: i });  // idx：在 updates.js 里第一次出现的位置（越小越新）
     if (!l.date || u.date > l.date) l.date = u.date;
     if (u.version && (!l.version || cmpVer(u.version, l.version) > 0)) l.version = u.version;
   });
@@ -397,7 +430,13 @@ footer a{color:var(--dim)}
     const list = WORKS.filter(w => (cur === "all" || w.type === cur) &&
       (!q || [w.name,w.en,w.desc,w.series,...loadersOf(w),...Object.values(w.versions||{}).flat(),...(w.platform||[])].join(" ").toLowerCase().includes(q)));
     if (!list.length) { $("#list").innerHTML = '<p class="empty">没有找到符合的作品 (・_・?)</p>'; return; }
-    // 按系列分组（保持 works.js 里的顺序）
+    // 最近更新的排前面（日期新的在前；同一天按 updates.js 里的先后）；没有更新记录的放最后
+    list.sort((a, b) => {
+      const x = latest[a.id], y = latest[b.id];
+      if (!x || !y) return (x ? 0 : 1) - (y ? 0 : 1);
+      return x.date !== y.date ? (x.date < y.date ? 1 : -1) : x.idx - y.idx;
+    });
+    // 按系列分组（系列的先后 = 系列里最近更新的那个作品）
     const groups = [];
     list.forEach(w => {
       const g = w.series || ({mod:"MC 模组",app:"软件",plugin:"插件"}[w.type] || "其它作品");
@@ -410,35 +449,41 @@ footer a{color:var(--dim)}
   }
   renderChips(); render(); renderFeatured(true);
 
-  /* 更新公告 */
-  const NEWS_TABS = [
-    { key:"all", label:"全部" }, { key:"mod", label:"MC 模组" }, { key:"app", label:"软件" },
-    { key:"plugin", label:"插件" }, { key:"other", label:"其它" },
-  ];
+  /* 更新公告：跟着顶上的分区按钮走，自带搜索框 */
   const byId = Object.fromEntries(WORKS.map(w => [w.id, w]));
   const UPD = (typeof UPDATES !== "undefined" ? UPDATES : []).map(u => {
-    const w = byId[u.work]; return { ...u, w, type: u.type || (w && w.type) || "other" };
+    const w = byId[u.work];
+    return { ...u, w, type: u.type || (w && w.type) || "other",
+      text: [u.date, u.version, u.title, w && w.name, w && w.en, ...(u.items || [])].join(" ").toLowerCase() };
   });
-  let newsCur = "all";
+  const entryHtml = (date, who, ver, items) => `<div class="entry"><time>${esc(date)}</time><div>${who}${ver ? `<span class="ver">${esc(ver)}</span>` : ""}${
+    items && items.length ? `<ul>${items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>` : ""}</div></div>`;
+  let newsQ = "";
   function renderNews(){
-    $("#newsTabs").innerHTML = NEWS_TABS.map(t =>
-      `<button class="tab" role="tab" data-k="${t.key}" aria-selected="${t.key===newsCur}">${t.label}</button>`).join("");
-    const list = UPD.filter(u => newsCur === "all" || u.type === newsCur);
+    const list = UPD.filter(u => (cur === "all" || u.type === cur) && (!newsQ || u.text.includes(newsQ)));
     $("#newsList").scrollTop = 0;
-    $("#newsList").innerHTML = list.length ? list.map(u => {
-      const who = u.w ? `<a class="who" href="#w-${esc(u.w.id)}">${esc(u.w.name)}</a>` : `<span class="who">${esc(u.title || "")}</span>`;
-      const ver = u.version ? `<span class="ver">${esc(u.version)}</span>` : "";
-      const items = (u.items || []).map(i => `<li>${esc(i)}</li>`).join("");
-      return `<div class="entry"><time>${esc(u.date)}</time><div>${who}${ver}${items ? `<ul>${items}</ul>` : ""}</div></div>`;
-    }).join("") : '<p class="news-empty">这里暂时还空着，以后会有东西的~ (｡•̀ᴗ-)✧</p>';
+    $("#newsList").innerHTML = list.length ? list.map(u => entryHtml(u.date,
+      u.w ? `<a class="who" href="#w-${esc(u.w.id)}">${esc(u.w.name)}</a>` : `<span class="who">${esc(u.title || "")}</span>`,
+      u.version, u.items)).join("")
+      : `<p class="news-empty">${newsQ ? "没有搜到相关的更新日志 (・_・?)" : "这里暂时还空着，以后会有东西的~ (｡•̀ᴗ-)✧"}</p>`;
   }
-  $("#newsTabs").onclick = e => { const b = e.target.closest(".tab"); if (!b) return; newsCur = b.dataset.k; renderNews(); };
+  $("#newsSearch").oninput = e => { newsQ = e.target.value.trim().toLowerCase(); renderNews(); };
   renderNews();
+
+  /* 网站维护日志弹窗 */
+  const dlg = $("#logDlg");
+  $("#logList").innerHTML = (typeof SITE_LOG !== "undefined" ? SITE_LOG : []).map(s => {
+    const d = String(s.version).match(/^(\d{4})(\d{2})(\d{2})/);
+    return entryHtml(d ? `${d[1]}-${d[2]}-${d[3]}` : "", `<span class="who">${esc(s.version)}</span>`, "", s.items);
+  }).join("") || '<p class="news-empty">还没有维护记录~</p>';
+  $("#logBtn").onclick = () => { closeBubble(); dlg.showModal(); $("#logList").scrollTop = 0; };
+  $("#logX").onclick = () => dlg.close();
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });  // 点弹窗外面也能关
   /* 点公告里的作品名：如果卡片被筛选藏起来了，先切回全部 */
   document.addEventListener("click", e => {
     const a = e.target.closest('a[href^="#w-"]'); if (!a) return;
     const id = a.getAttribute("href");
-    if (!document.querySelector(id)) { e.preventDefault(); cur = "all"; q = ""; $("#search").value = ""; renderChips(); render(); document.querySelector(id)?.scrollIntoView(); }
+    if (!document.querySelector(id)) { e.preventDefault(); cur = "all"; q = ""; $("#search").value = ""; $("#duo").hidden = false; renderChips(); render(); renderFeatured(true); renderNews(); document.querySelector(id)?.scrollIntoView(); }
   });
 
   /* 伙伴 */
