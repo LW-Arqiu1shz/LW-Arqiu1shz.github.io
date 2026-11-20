@@ -17,8 +17,41 @@ const UPDATES = [
   { date: "2026-11-18", work: "tridents", version: "1.2.0", items: [
     "新增 26.2 Fabric、26.2 NeoForge 版本",
   ]},
-  { date: "2026-11-17", work: "clock", version: "1.0.0", items: [
-    "第一个正式版~ 下载解压后双击「小克桌面时钟.exe」即可",
+  { date: "2026-11-17", work: "clock", version: "1.3.2", items: [
+    "修复：调低不透明度时文字被阴影染黑",
+    "关于页面和托盘菜单显示版本号",
+  ]},
+  { date: "2026-11-17", work: "clock", version: "1.3.1", items: [
+    "字号单位可选磅 / 像素",
+    "「全屏预览编辑」：以当时的桌面截图为背景",
+    "搜索框：拼音正常大小，提示改为「搜索城市或时区」",
+    "修复异常换行和空格",
+    "更新默认配置",
+  ]},
+  { date: "2026-11-17", work: "clock", version: "1.3.0", items: [
+    "设置界面改成 Win11 风格",
+    "托盘左键打开设置，右键菜单",
+    "字号按磅计算，可直接输入",
+    "修复 exe 和设置窗口图标",
+    "设置窗口打开提速到约 0.4 秒",
+  ]},
+  { date: "2026-11-17", work: "clock", version: "1.2.1", items: [
+    "修复 Win10 上壁纸变黑",
+  ]},
+  { date: "2026-11-17", work: "clock", version: "1.2.0", items: [
+    "设置窗口：所有选项都能直接改，时区搜索，拖动选位置",
+    "「关于」页面",
+  ]},
+  { date: "2026-11-17", work: "clock", version: "1.1.2", items: [
+    "修复开启后无法更换壁纸",
+  ]},
+  { date: "2026-11-17", work: "clock", version: "1.1.1", items: [
+    "定名「小克桌面时钟 / Claude Desktop Clock」，新图标",
+    "托盘菜单，作者署名",
+    "修复关闭脚本无效",
+  ]},
+  { date: "2026-11-17", work: "clock", version: "1.1.0", items: [
+    "不再写入磁盘，降低性能开销",
   ]},
   { date: "2026-11-17", work: "volume", version: "1.2.0", items: [
     "柔和压缩：超出范围的部分只拉回一部分，大声段落不再被一刀切",
@@ -71,6 +104,13 @@ const UPDATES = [
   ]},
   { date: "2026-11-17", work: "spears", version: "1.1.0", items: [
     "新增 1.20.1 Forge、1.21.1 NeoForge 版本",
+  ]},
+  { date: "2026-11-16", work: "clock", version: "1.0.1", items: [
+    "修复配置不生效",
+    "修复切换虚拟桌面时时钟消失、壁纸被统一",
+  ]},
+  { date: "2026-11-16", work: "clock", version: "1.0.0", items: [
+    "首个版本：桌面图标后面的壁纸时钟，中国时间居中显示，开机自启",
   ]},
   { date: "2026-11-16", work: "downloader", version: "1.1.2", items: [
     "换上新图标~",
