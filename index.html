@@ -402,7 +402,8 @@ footer a{color:var(--dim)}
   }
   const LOADER_ORDER = ["Fabric","NeoForge","Forge","Quilt"];
   const loadersOf = w => Object.keys(w.versions || {}).sort((a,b) => (LOADER_ORDER.indexOf(a)+99)%99 - (LOADER_ORDER.indexOf(b)+99)%99);
-  const major = v => v.split(".").slice(0,2).join(".") + ".x";
+  // 1.x 的按 1.21.x 这样分；26 起（年份版本号）整个大版本折一起：26.x、27.x
+  const major = v => { const p = v.split("."); return (+p[0] >= 26 ? p[0] : p.slice(0,2).join(".")) + ".x"; };
   function versionGroups(list){
     const g = {};
     [...list].sort(cmpVer).forEach(v => (g[major(v)] = g[major(v)] || []).push(v));
@@ -454,7 +455,8 @@ footer a{color:var(--dim)}
     // 按系列分组（系列的先后 = 系列里最近更新的那个作品）
     const groups = [];
     list.forEach(w => {
-      const g = w.series || ({mod:"MC 模组",app:"软件",plugin:"插件"}[w.type] || "其它作品");
+      const t = {mod:"MC模组",app:"软件",plugin:"插件"}[w.type] || "其它作品";
+      const g = w.series ? `${t} · ${w.series}` : t;
       let grp = groups.find(x => x.name === g); if (!grp) groups.push(grp = { name:g, items:[] });
       grp.items.push(w);
     });

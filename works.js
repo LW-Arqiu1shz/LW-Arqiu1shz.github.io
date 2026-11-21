@@ -15,7 +15,8 @@
  *   status   "released"（已发布）/ "dev"（开发中）
  *   repo     GitHub 仓库名（不开源就删掉这行）
  *   mcmod    MC百科页面的编号（www.mcmod.cn/class/编号.html 里的数字）
- *   series   系列名（可以不写）
+ *   series   系列名。网页会自动在前面加分区名，比如 "金源工艺系列" 显示成「MC模组 · 金源工艺系列」
+ *            软件写做给谁/哪一类（如 "桌面小帮手"），插件写给哪个软件做的（如 "EchoMusic"）
  *   links    额外的按钮：[{ text: "按钮文字", url: "链接" }]
  */
 const WORKS = [
@@ -118,7 +119,7 @@ const WORKS = [
 
   // ---------- 软件 ----------
   {
-    id: "clock", type: "app", status: "released",
+    id: "clock", type: "app", status: "released", series: "桌面小帮手",
     name: "小克桌面时钟", en: "Claude Desktop Clock",
     desc: "免费、高度可配置、极低性能开销的 Windows 桌面时钟~ 画在桌面图标后面，像壁纸自带的一样。",
     cover: "img/clock.webp", repo: "Claude-Desktop-Clock",
@@ -127,14 +128,14 @@ const WORKS = [
 
   // ---------- 插件 ----------
   {
-    id: "volume", type: "plugin", status: "released",
+    id: "volume", type: "plugin", status: "released", series: "EchoMusic",
     name: "小克音量均衡器", en: "Claude Volume Leveler",
     desc: "EchoMusic 插件：小克会帮你实时调歌曲音量~ 柔和压缩 + 整首预听。",
     cover: "img/volume.webp", repo: "Claude-Volume-Leveler",
     platform: ["EchoMusic"],
   },
   {
-    id: "downloader", type: "plugin", status: "released",
+    id: "downloader", type: "plugin", status: "released", series: "EchoMusic",
     name: "小克音乐下载器", en: "Claude Music Downloader",
     desc: "EchoMusic 插件：现在可以下载当前在听的歌啦~",
     cover: "img/downloader.webp", repo: "Claude-Music-Downloader",
