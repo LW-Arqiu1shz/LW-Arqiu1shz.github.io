@@ -9,6 +9,11 @@
  *   items    更新内容，一条一行
  */
 const UPDATES = [
+  { date: "2026-11-21", work: "spears", version: "1.2.0", items: [
+    "加入配置选项，现在可以自由开关模组的每个功能",
+    "模组列表中的名称和简介现在会跟随游戏语言切换",
+    "在 GitHub 开源",
+  ]},
   { date: "2026-11-20", work: "uec", version: "1.0.1", items: [
     "修复在非 NeoForge 服务器上无法正常进入服务器的问题（仅 NeoForge 版本）",
     "添加双语适配",

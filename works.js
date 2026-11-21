@@ -77,7 +77,7 @@ const WORKS = [
     id: "spears", type: "mod", mcmod: 32337, status: "released", series: "原版小优化",
     name: "这长矛有力气", en: "Awesome Spears",
     desc: "突进附魔太能吃、空中不能用、冲锋和突进不能一起用、瞄着天还只能横着冲……装上这个模组，这些烦恼统统烟消云散。希望如此。",
-    cover: "img/spears.webp",
+    cover: "img/spears.webp", repo: "Awesome-Spears",
     versions: { Fabric: ["26.1.2", "26.3"], NeoForge: ["1.21.1", "26.1.2", "26.3"], Forge: ["1.20.1"] },
   },
   {
