@@ -9,6 +9,11 @@
  *   items    更新内容，一条一行
  */
 const UPDATES = [
+  { date: "2026-11-24", work: "lets-start-together", version: "1.0.0", items: [
+    "首个版本：多人世界先进联机小厅，大家到齐后由房主点「开始游戏」一起进入世界，等待时世界时间不走",
+    "支持 26.1.2、26.3 的 Fabric 和 NeoForge",
+    "在 GitHub 开源",
+  ]},
   { date: "2026-11-21", work: "spears", version: "1.2.0", items: [
     "加入配置选项，现在可以自由开关模组的每个功能",
     "模组列表中的名称和简介现在会跟随游戏语言切换",
