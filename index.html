@@ -71,6 +71,25 @@ a{color:inherit}
 /* ---- 置顶大图 ---- */
 .duo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;margin:22px auto 8px;align-items:stretch}
 .duo[hidden]{display:none}
+/* 没有开发中的作品：只留公告，居中，宽度和平时右栏一样 */
+.duo.solo{grid-template-columns:minmax(0,1fr)}
+.duo.solo #featured{display:none}
+.duo.solo .news{width:calc((100% - 20px) / 2.1);justify-self:center}
+/* 宽屏：两栏固定同一个高度（以 MC模组 那张为准），大图区域自动伸缩 */
+@media (min-width:861px){
+  .duo{height:570px}
+  .featured .pic{aspect-ratio:auto;flex:1;min-height:0}
+  .featured .fx{flex:none}
+}
+/* 小分类栏：左边主分类方框，右边小分类 */
+.subbar{display:flex;flex-direction:column;gap:10px;margin:28px auto 0}
+.subbar[hidden]{display:none}
+.subrow{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:10px 12px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.subrow .main{padding:5px 14px;border:2px solid var(--accent);border-radius:9px;color:var(--accent-fg);font-weight:700;font-size:15px;margin-right:8px;white-space:nowrap}
+.sub{border:0;background:none;color:var(--dim);padding:6px 12px;border-radius:9px;font:inherit;font-size:14px;cursor:pointer;transition:.15s}
+.sub:hover{color:var(--fg);background:var(--accent-soft)}
+.sub[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent-fg);font-weight:600}
+.sub .n{opacity:.6;margin-left:4px;font-size:12px}
 #featured{display:flex;flex-direction:column;min-width:0;position:relative}
 .featured{display:flex;flex-direction:column;flex:1;border-radius:22px;overflow:hidden;
   text-decoration:none;color:#fff;box-shadow:var(--shadow);background:linear-gradient(135deg,#3a130a,#1c0905)}
@@ -226,6 +245,7 @@ footer a{color:var(--dim)}
   .news{min-height:0}
   .news-in{position:static}
   .news-list{max-height:380px}
+  .duo.solo .news{width:100%}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -282,6 +302,8 @@ footer a{color:var(--dim)}
   <div class="log-head"><h3 id="logTitle">🛠️ 网站维护日志</h3><button class="log-x" id="logX" type="button" aria-label="关闭">×</button></div>
   <div class="log-list" id="logList"></div>
 </dialog>
+
+<div class="wrap subbar" id="subbar"></div>
 
 <main class="wrap" id="list"></main>
 
@@ -356,7 +378,8 @@ footer a{color:var(--dim)}
     const list = devList();
     if (reset) featIdx = 0;
     clearInterval(featTimer);
-    if (!list.length) { $("#featured").classList.remove("has-nav"); $("#featured").innerHTML = '<div class="feat-empty">这个分区暂时没有正在做的东西，先去下面看看已经做好的吧~ (｡･ω･｡)</div>'; return; }
+    $("#duo").classList.toggle("solo", !list.length);  // 没有开发中的：只显示公告，居中
+    if (!list.length) { $("#featured").classList.remove("has-nav"); $("#featured").innerHTML = ""; return; }
     featIdx = (featIdx + list.length) % list.length;
     const f = list[featIdx], wide = !!f.banner, img = f.banner || f.cover;
     $("#featured").innerHTML = `
@@ -382,9 +405,28 @@ footer a{color:var(--dim)}
     $("#chips").innerHTML = TYPES.filter(t => t.key === "all" || count(t.key))
       .map(t => `<button class="chip" data-k="${t.key}" aria-pressed="${t.key===cur}">${t.label}<span class="n">${t.key==="all"?WORKS.length:count(t.key)}</span></button>`).join("");
   }
-  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; renderChips(); render(); renderFeatured(true); renderNews(); };
+  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; renderChips(); renderSub(); render(); renderFeatured(true); renderNews(); };
   /* 搜索作品时，把开发中展示和公告藏起来 */
-  $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); $("#duo").hidden = !!q; render(); };
+  $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); $("#duo").hidden = $("#subbar").hidden = !!q; render(); };
+
+  /* 小分类（works.js 里的 series）：每个主分类一行，按作品数从多到少，没写 series 的归「未分类」放最后 */
+  const TNAME = {mod:"MC模组", app:"软件", plugin:"插件"};
+  const NONE = "#none";
+  const sub = {};  // 主分类 -> "all" / 系列名 / NONE
+  const subOk = w => { const s = sub[w.type] || "all"; return s === "all" || (s === NONE ? !w.series : w.series === s); };
+  function renderSub(){
+    const types = (cur === "all" ? Object.keys(TNAME) : [cur]).filter(t => count(t));
+    $("#subbar").innerHTML = types.map(t => {
+      const items = WORKS.filter(w => w.type === t), m = {}; let none = 0;
+      items.forEach(w => w.series ? (m[w.series] = (m[w.series] || 0) + 1) : none++);
+      const list = Object.entries(m).sort((a, b) => b[1] - a[1]);
+      if (none) list.push([NONE, none]);
+      const s = sub[t] || "all";
+      const btn = (k, label, n) => `<button class="sub" type="button" data-t="${t}" data-s="${esc(k)}" aria-pressed="${s === k}">${esc(label)}<span class="n">${n}</span></button>`;
+      return `<div class="subrow"><span class="main">${TNAME[t] || "其它"}</span>${btn("all", "全部", items.length)}${list.map(([k, n]) => btn(k, k === NONE ? "未分类" : k, n)).join("")}</div>`;
+    }).join("");
+  }
+  $("#subbar").onclick = e => { const b = e.target.closest(".sub"); if (!b) return; sub[b.dataset.t] = b.dataset.s; renderSub(); render(); };
 
   /* 卡片 */
   /* 最新版本 / 最后更新：自动取 updates.js 里每个作品最新的一条 */
@@ -444,7 +486,7 @@ footer a{color:var(--dim)}
   function render(){
     closeBubble();
     const list = WORKS.filter(w => (cur === "all" || w.type === cur) &&
-      (!q || [w.name,w.en,w.desc,w.series,...loadersOf(w),...Object.values(w.versions||{}).flat(),...(w.platform||[])].join(" ").toLowerCase().includes(q)));
+      (q ? true : subOk(w)) && (!q || [w.name,w.en,w.desc,w.series,...loadersOf(w),...Object.values(w.versions||{}).flat(),...(w.platform||[])].join(" ").toLowerCase().includes(q)));
     if (!list.length) { $("#list").innerHTML = '<p class="empty">没有找到符合的作品 (・_・?)</p>'; return; }
     // 最近更新的排前面（日期新的在前；同一天按 updates.js 里的先后）；没有更新记录的放最后
     list.sort((a, b) => {
@@ -452,19 +494,18 @@ footer a{color:var(--dim)}
       if (!x || !y) return (x ? 0 : 1) - (y ? 0 : 1);
       return x.date !== y.date ? (x.date < y.date ? 1 : -1) : x.idx - y.idx;
     });
-    // 按系列分组（系列的先后 = 系列里最近更新的那个作品）
+    // 按小分类（series）分组，标题只写小分类名；系列的先后 = 系列里最近更新的那个作品
     const groups = [];
     list.forEach(w => {
-      const t = {mod:"MC模组",app:"软件",plugin:"插件"}[w.type] || "其它作品";
-      const g = w.series ? `${t} · ${w.series}` : t;
-      let grp = groups.find(x => x.name === g); if (!grp) groups.push(grp = { name:g, items:[] });
+      const key = w.type + "|" + (w.series || NONE);
+      let grp = groups.find(x => x.key === key); if (!grp) groups.push(grp = { key, name: w.series || "未分类", items:[] });
       grp.items.push(w);
     });
     $("#list").innerHTML = groups.map(g => `
       <div class="section-title"><h3>${esc(g.name)}</h3><span>${g.items.length} 个</span></div>
       <div class="grid">${g.items.map(card).join("")}</div>`).join("");
   }
-  renderChips(); render(); renderFeatured(true);
+  renderChips(); renderSub(); render(); renderFeatured(true);
 
   /* 更新公告：跟着顶上的分区按钮走，自带搜索框 */
   const byId = Object.fromEntries(WORKS.map(w => [w.id, w]));
@@ -500,7 +541,7 @@ footer a{color:var(--dim)}
   document.addEventListener("click", e => {
     const a = e.target.closest('a[href^="#w-"]'); if (!a) return;
     const id = a.getAttribute("href");
-    if (!document.querySelector(id)) { e.preventDefault(); cur = "all"; q = ""; $("#search").value = ""; $("#duo").hidden = false; renderChips(); render(); renderFeatured(true); renderNews(); document.querySelector(id)?.scrollIntoView(); }
+    if (!document.querySelector(id)) { e.preventDefault(); cur = "all"; q = ""; $("#search").value = ""; $("#duo").hidden = $("#subbar").hidden = false; for (const k in sub) delete sub[k]; renderChips(); renderSub(); render(); renderFeatured(true); renderNews(); document.querySelector(id)?.scrollIntoView(); }
   });
 
   /* 伙伴 */

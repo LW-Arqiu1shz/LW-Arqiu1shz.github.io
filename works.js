@@ -15,14 +15,14 @@
  *   status   "released"（已发布）/ "dev"（开发中）
  *   repo     GitHub 仓库名（不开源就删掉这行）
  *   mcmod    MC百科页面的编号（www.mcmod.cn/class/编号.html 里的数字）
- *   series   系列名。网页会自动在前面加分区名，比如 "金源工艺系列" 显示成「MC模组 · 金源工艺系列」
+ *   series   小分类名（比如 "金源工艺系列"）。作品按它分组，顶上小分类栏也按它列；不写就归到「未分类」
  *            软件写做给谁/哪一类（如 "桌面小帮手"），插件写给哪个软件做的（如 "EchoMusic"）
  *   links    额外的按钮：[{ text: "按钮文字", url: "链接" }]
  */
 const WORKS = [
   // ---------- 焚于烈日之下 ----------
   {
-    id: "solapocalypsis", type: "mod", status: "dev", featured: true, series: "焚于烈日之下",
+    id: "solapocalypsis", type: "mod", status: "dev", featured: true,
     name: "焚于烈日之下", en: "Solapocalypsis",
     desc: "太阳失稳，即将焚尽世界。作为「磁极灯塔计划」最后的参与者，实验助手，活下去，拯救这个世界吧。",
     cover: "img/solapocalypsis.webp", banner: "img/hero.webp",
@@ -31,7 +31,7 @@ const WORKS = [
 
   // ---------- 前置库 ----------
   {
-    id: "enplotify", type: "mod", status: "released", series: "前置库",
+    id: "enplotify", type: "mod", status: "released",
     name: "沉浸式剧情", en: "EnPlotify",
     desc: "黑屏逐字的剧情模式，加上能自己写字、配图的海报、报纸、文档、黑板和白板，还有打印机和能上网的终端。其它模组只需写好文本，就能用上这些。",
     cover: "img/enplotify.webp", repo: "EnPlotify",
@@ -64,7 +64,7 @@ const WORKS = [
     id: "origolds-ga", type: "mod", status: "dev", series: "金源工艺系列",
     name: "金源工艺：源金渴望", en: "OriGolds: Gilding Avarice",
     desc: "以《金源工艺》为基础，添加了一整套完整的龙后流程。数值爆炸的凝源镀金、数个 BOSS 和副本等你挑战。开肝吧，我的朋友！",
-    cover: "img/origolds-ga.webp",
+    cover: "img/origolds-ga.webp", banner: "img/origolds-ga-banner.webp",
     versions: { NeoForge: ["1.21.1"] },
   },
 
