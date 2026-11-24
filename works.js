@@ -29,6 +29,15 @@ const WORKS = [
     versions: { NeoForge: ["26.1.2"] },
   },
 
+  // ---------- 前置库 ----------
+  {
+    id: "enplotify", type: "mod", status: "released", series: "前置库",
+    name: "沉浸式剧情", en: "EnPlotify",
+    desc: "黑屏逐字的剧情模式，加上能自己写字、配图的海报、报纸、文档、黑板和白板，还有打印机和能上网的终端。其它模组只需写好文本，就能用上这些。",
+    cover: "img/enplotify.webp", repo: "EnPlotify",
+    versions: { NeoForge: ["26.1.2"] },
+  },
+
   // ---------- 金源工艺系列 ----------
   {
     id: "origolds", type: "mod", mcmod: 30435, status: "released", series: "金源工艺系列",
