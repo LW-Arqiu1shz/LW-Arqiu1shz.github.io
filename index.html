@@ -125,6 +125,10 @@ a{color:inherit}
 /* 网站维护日志弹窗 */
 dialog.log{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--fg);padding:0;
   width:min(560px,calc(100vw - 32px));max-height:min(640px,82vh);box-shadow:var(--shadow-hover)}
+dialog.log.big{width:min(820px,calc(100vw - 32px));max-height:min(760px,86vh)}
+.thanks-body{overflow-y:auto;padding:14px 18px 20px}
+.thanks-body h4{margin:6px 0 10px;font-size:14px;color:var(--faint);font-weight:600}
+.thanks-body p.lead{margin:0 0 14px;color:var(--dim);font-size:14px}
 dialog.log[open]{display:flex;flex-direction:column;animation:bub .16s ease-out both}
 dialog.log::backdrop{background:rgba(25,15,8,.45);backdrop-filter:blur(2px)}
 .log-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 12px;border-bottom:1px solid var(--line)}
@@ -183,10 +187,10 @@ dialog.log::backdrop{background:rgba(25,15,8,.45);backdrop-filter:blur(2px)}
 .badge{position:absolute;top:10px;left:10px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;
   background:rgba(255,255,255,.92);color:#3b2f27;backdrop-filter:blur(4px)}
 .badge.dev{background:#ffcf6b;color:#4a3300}
-.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:none;height:281px;overflow:hidden}  /* 锁高：以「这长矛有力气」为准 */
 .name{font-size:17px;font-weight:700;line-height:1.35}
 .en{color:var(--faint);font-size:13px;margin-top:1px}
-.desc{color:var(--dim);font-size:14px;margin:0;flex:1}
+.desc{color:var(--dim);font-size:14px;margin:0;flex:1 1 0;min-height:0;overflow:hidden}  /* 放不下由脚本截断成 ··· */
 .tags{display:flex;flex-wrap:wrap;gap:5px}
 .tag{font-size:12px;padding:1px 8px;border-radius:6px;background:var(--bg2);color:var(--dim)}
 .tag.loader{background:var(--blue-soft);color:var(--blue);font-weight:600}
@@ -223,7 +227,6 @@ dialog.log::backdrop{background:rgba(25,15,8,.45);backdrop-filter:blur(2px)}
 .partner{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
 .partner b{display:block}
 .partner span{font-size:13px;color:var(--dim)}
-#partnersPeople{margin-top:12px}
 #partnersPeople .partner{background:var(--bg2)}
 footer{color:var(--faint);font-size:13px;text-align:center;padding:50px 0 40px}
 footer a{color:var(--dim)}
@@ -236,8 +239,11 @@ footer a{color:var(--dim)}
   .gh-text{display:none}
   .navlinks{margin-right:0}
   .navlinks .hide-m{display:none}
-  .navlinks button{font-size:13px;padding:6px 6px}
-  .top-right{gap:6px}
+  .navlinks{gap:0}
+  .navlinks button{font-size:12.5px;padding:6px 4px}
+  .logo{font-size:16px}
+  .top-right{gap:5px}
+  .icon-btn{padding:0 9px}
   .entry{grid-template-columns:1fr;gap:2px}
 }
 @media (max-width:860px){
@@ -255,7 +261,7 @@ footer a{color:var(--dim)}
   <nav class="top">
     <a class="logo" href="#">Arqiu<span>-owo</span></a>
     <div class="top-right">
-      <div class="navlinks"><button id="logBtn" type="button">网站维护日志</button><a class="hide-m" href="#partners-sec">鸣谢</a></div>
+      <div class="navlinks"><button id="logBtn" type="button">网站维护日志</button><button id="thanksBtn" type="button">鸣谢</button></div>
       <button class="icon-btn" id="themeBtn" title="切换深浅色" aria-label="切换深浅色"></button>
       <a class="icon-btn" href="https://center.mcmod.cn/188965/" target="_blank" rel="noopener" title="我的 MC百科主页" aria-label="MC百科">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2"/><path d="M8 7h7"/></svg>
@@ -298,6 +304,17 @@ footer a{color:var(--dim)}
   </section>
 </div>
 
+<dialog class="log big" id="thanksDlg" aria-labelledby="thanksTitle">
+  <div class="log-head"><h3 id="thanksTitle">💐 鸣谢</h3><button class="log-x" id="thanksX" type="button" aria-label="关闭">×</button></div>
+  <div class="thanks-body">
+    <p class="lead">没有大家就没有这些作品~</p>
+    <h4>AI 伙伴</h4>
+    <div class="partners" id="partnersAI"></div>
+    <h4 style="margin-top:18px">朋友们</h4>
+    <div class="partners" id="partnersPeople"></div>
+  </div>
+</dialog>
+
 <dialog class="log" id="logDlg" aria-labelledby="logTitle">
   <div class="log-head"><h3 id="logTitle">🛠️ 网站维护日志</h3><button class="log-x" id="logX" type="button" aria-label="关闭">×</button></div>
   <div class="log-list" id="logList"></div>
@@ -308,9 +325,6 @@ footer a{color:var(--dim)}
 <main class="wrap" id="list"></main>
 
 <div class="wrap">
-  <div class="section-title" id="partners-sec"><h3>鸣谢</h3><span>没有大家就没有这些作品</span></div>
-  <div class="partners" id="partnersAI"></div>
-  <div class="partners" id="partnersPeople"></div>
   <footer>
     © <span id="year"></span> Arqiu-owo · 页面托管在 <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
   </footer>
@@ -405,17 +419,19 @@ footer a{color:var(--dim)}
     $("#chips").innerHTML = TYPES.filter(t => t.key === "all" || count(t.key))
       .map(t => `<button class="chip" data-k="${t.key}" aria-pressed="${t.key===cur}">${t.label}<span class="n">${t.key==="all"?WORKS.length:count(t.key)}</span></button>`).join("");
   }
-  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; renderChips(); renderSub(); render(); renderFeatured(true); renderNews(); };
+  $("#chips").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; cur = b.dataset.k; for (const k in sub) delete sub[k]; renderChips(); renderSub(); render(); renderFeatured(true); renderNews(); };
   /* 搜索作品时，把开发中展示和公告藏起来 */
-  $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); $("#duo").hidden = $("#subbar").hidden = !!q; render(); };
+  $("#search").oninput = e => { q = e.target.value.trim().toLowerCase(); $("#duo").hidden = !!q; renderSub(); render(); };
 
   /* 小分类（works.js 里的 series）：每个主分类一行，按作品数从多到少，没写 series 的归「未分类」放最后 */
   const TNAME = {mod:"MC模组", app:"软件", plugin:"插件"};
   const NONE = "#none";
   const sub = {};  // 主分类 -> "all" / 系列名 / NONE
-  const subOk = w => { const s = sub[w.type] || "all"; return s === "all" || (s === NONE ? !w.series : w.series === s); };
+  const subOk = w => { if (cur === "all") return true; const s = sub[w.type] || "all"; return s === "all" || (s === NONE ? !w.series : w.series === s); };
   function renderSub(){
-    const types = (cur === "all" ? Object.keys(TNAME) : [cur]).filter(t => count(t));
+    // 只在选了某个分区、并且没在搜索时显示这一行
+    $("#subbar").hidden = cur === "all" || !!q;
+    const types = cur === "all" ? [] : [cur];
     $("#subbar").innerHTML = types.map(t => {
       const items = WORKS.filter(w => w.type === t), m = {}; let none = 0;
       items.forEach(w => w.series ? (m[w.series] = (m[w.series] || 0) + 1) : none++);
@@ -494,17 +510,40 @@ footer a{color:var(--dim)}
       if (!x || !y) return (x ? 0 : 1) - (y ? 0 : 1);
       return x.date !== y.date ? (x.date < y.date ? 1 : -1) : x.idx - y.idx;
     });
-    // 按小分类（series）分组，标题只写小分类名；系列的先后 = 系列里最近更新的那个作品
+    // 分组：顶上选「全部」→ 按大分类（MC模组 / 软件 / 插件）分，大分类的先后 = 里面最近更新的作品；
+    //       选了某个分区 → 不再分组，整块一个标题：「全部」或当前选的小分类名
+    const s = sub[cur] || "all";
+    const title = s === "all" ? "全部" : s === NONE ? "未分类" : s;
     const groups = [];
     list.forEach(w => {
-      const key = w.type + "|" + (w.series || NONE);
-      let grp = groups.find(x => x.key === key); if (!grp) groups.push(grp = { key, name: w.series || "未分类", items:[] });
+      const key = cur === "all" ? w.type : "one";
+      let grp = groups.find(x => x.key === key); if (!grp) groups.push(grp = { key, name: cur === "all" ? (TNAME[w.type] || "其它作品") : title, items:[] });
       grp.items.push(w);
     });
     $("#list").innerHTML = groups.map(g => `
       <div class="section-title"><h3>${esc(g.name)}</h3><span>${g.items.length} 个</span></div>
       <div class="grid">${g.items.map(card).join("")}</div>`).join("");
+    fitDescs();
   }
+  /* 简介放不下：截断成「···」，鼠标悬浮显示完整简介 */
+  function fitDescs(){
+    document.querySelectorAll("#list .desc").forEach(d => {
+      const full = d.dataset.full || (d.dataset.full = d.textContent);
+      d.textContent = full; d.removeAttribute("title");
+      if (d.scrollHeight <= d.clientHeight + 1) return;
+      const ch = Array.from(full); let lo = 0, hi = ch.length;
+      while (lo < hi) {
+        const mid = (lo + hi + 1) >> 1;
+        d.textContent = ch.slice(0, mid).join("").trimEnd() + "···";
+        if (d.scrollHeight <= d.clientHeight + 1) lo = mid; else hi = mid - 1;
+      }
+      d.textContent = ch.slice(0, lo).join("").trimEnd() + "···";
+      d.title = full;
+    });
+  }
+  let fitW = innerWidth;
+  addEventListener("resize", () => { if (innerWidth === fitW) return; fitW = innerWidth; clearTimeout(fitDescs.t); fitDescs.t = setTimeout(fitDescs, 120); });
+  document.fonts?.ready.then(fitDescs);
   renderChips(); renderSub(); render(); renderFeatured(true);
 
   /* 更新公告：跟着顶上的分区按钮走，自带搜索框 */
@@ -548,6 +587,10 @@ footer a{color:var(--dim)}
   const pc = p => `<div class="partner"><b>${esc(p.name)}</b><span>${esc(p.role)}</span></div>`;
   $("#partnersAI").innerHTML = (PROFILE.thanksAI || []).map(pc).join("");
   $("#partnersPeople").innerHTML = (PROFILE.thanksPeople || []).map(pc).join("");
+  const tdlg = $("#thanksDlg");
+  $("#thanksBtn").onclick = () => { closeBubble(); tdlg.showModal(); };
+  $("#thanksX").onclick = () => tdlg.close();
+  tdlg.addEventListener("click", e => { if (e.target === tdlg) tdlg.close(); });
 
   /* 吸顶阴影 */
   const bar = $("#bar");
