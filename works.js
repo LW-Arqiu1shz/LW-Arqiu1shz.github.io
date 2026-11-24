@@ -59,16 +59,14 @@ const WORKS = [
     versions: { NeoForge: ["1.21.1"] },
   },
 
-  // ---------- 联机小厅 ----------
+  // ---------- 原版小优化 ----------
   {
-    id: "lets-start-together", type: "mod", status: "released", series: "联机小厅",
+    id: "lets-start-together", type: "mod", status: "released", series: "原版小优化",
     name: "联机小厅", en: "Let's Start Together!",
     desc: "“我还没进来呢你们怎么开玩了”联机时总有人网不好进不来？先在小厅里集合，等大家都进来再一起开始，就没有进度差的烦恼啦~",
     cover: "img/lets-start-together.webp", repo: "Lets-Start-Together",
     versions: { Fabric: ["26.1.2", "26.3"], NeoForge: ["26.1.2", "26.3"] },
   },
-
-  // ---------- 原版小优化 ----------
   {
     id: "tridents", type: "mod", mcmod: 32170, status: "released", series: "原版小优化",
     name: "三叉戟强无敌", en: "Awesome Tridents",
